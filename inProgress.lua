@@ -48,7 +48,7 @@ function getPositions()
 end
 
 function getTile(dx, dy)
-		local x = simonX + dx + 8
+--[[		local x = simonX + dx + 8
 		local y = simonY + dy - 16
 		local page = math.floor(x/256)%2
 
@@ -64,16 +64,18 @@ function getTile(dx, dy)
 			return 1
 		else
 			return 0
-		end
+		end ]]--
+x = math.floor((simonX+dx+8)/16)	
+y = math.floor((simonY+dx+8)/16)	
 	end
 
 function getSprites()
 		local sprites = {}
 		for slot=0,4 do
-			local enemy = memory.readbyte(0xF+slot)
-			if enemy ~= 0 then
-				local ex = memory.readbyte(0x6E + slot)*0x100 + memory.readbyte(0x87+slot)
-				local ey = memory.readbyte(0xCF + slot)+24
+			local enemy = memory.readbyte(0x0358+slot)
+			if enemy ~= 244 then
+				local ex = memory.readbyte(0x0390 + slot)
+				local ey = memory.readbyte(0x0358 + slot)
 				sprites[#sprites+1] = {["x"]=ex,["y"]=ey}
 			end
 		end
